@@ -1,0 +1,10 @@
+Configurando o GIT
+git config --global user.name GalloJunior
+git config --global user.email gallojunior@gmail.com
+
+Criando um projeto MVC
+dotnet new mvc -o BlogGallo
+
+Executar
+cd BlogGallo
+dotnet watch run
