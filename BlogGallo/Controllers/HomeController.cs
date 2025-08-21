@@ -7,15 +7,13 @@ namespace BlogGallo.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private List<Categoria> categorias;
+    private List<Postagem> postagens;
 
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-    }
-
-    public IActionResult Index()
-    {
-        List<Categoria> categorias = [
+        categorias = [
             new() { Id = 1, Nome = "Mundo", Cor = "#1E90FF" }, // Azul globo/oceano
             new() { Id = 2, Nome = "Brasil", Cor = "#009C3B" }, // Verde bandeira Brasil
             new() { Id = 3, Nome = "Tecnologia", Cor = "#00BFFF" }, // Azul digital/futurista
@@ -29,7 +27,7 @@ public class HomeController : Controller
             new() { Id = 11, Nome = "Estilo", Cor = "#FF69B4" }, // Rosa moda/estilo
             new() { Id = 12, Nome = "Viagens", Cor = "#FFA500" } // Laranja aventura/energia
         ];
-        List<Postagem> postagens = [
+        postagens = [
             new() {
                 Id = 1,
                 Nome = "Crise humanitária cresce em zonas de conflito no Oriente Médio",
@@ -163,12 +161,21 @@ public class HomeController : Controller
                 Foto = "/img/posts/12.jpg"
             }
         ];
+    }
+
+    public IActionResult Index()
+    {
         return View(postagens);
     }
 
     public IActionResult Postagem(int id)
     {
-        return View();
+        var postagem = postagens
+            .Where(p => p.Id == id)
+            .SingleOrDefault();
+        if (postagem == null)
+            return NotFound();
+        return View(postagem);
     }
 
     public IActionResult Privacy()
