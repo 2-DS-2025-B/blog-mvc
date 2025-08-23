@@ -1,6 +1,7 @@
 @model Postagem
 @{
     ViewData["Title"] = "Postagem";
+    var categorias = (List<Categoria>)ViewData["Categorias"];
 }
 
 <div class="container">
@@ -21,6 +22,36 @@
         </div>
         @* Sidebar *@
         <div class="col-md-4">
+            @* Formulário de Pesquisa *@
+            <div class="card mb-4">
+                <div class="card-header">Pesquisar</div>
+                <div class="card-body">
+                    <form>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Pesquisar por...">
+                            <button class="btn btn-outline-secondary" type="button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">Categorias</div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        @foreach (Categoria categoria in categorias)
+                        {
+                            <li>
+                                <a href="#" class="text-decoration-none mb-2">
+                                    @categoria.Nome
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
 
         </div>
     </div>
